@@ -1,0 +1,212 @@
+swagger: '2.0'
+
+info:
+  description: Customer API
+  version: 1.0.0
+  title: Customer Relationship Management API
+  contact:
+    email: jean.petri@platformbuilders.com.br
+    
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+host: localhost:8080
+basePath: /api
+schemes:
+ - http
+
+tags:
+- name: system
+  description: Operations available to CRM
+- name: customers
+  description: Operations available to customers / container owners
+
+paths:
+
+  /customers:
+    get:
+      tags:
+      - customers
+      summary: List all customers / containers (with essential data, enough for displaying a table)
+      operationId: listCustomers
+      description: |
+        TODO
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Customer'
+
+    post:
+      tags:
+      - system
+      summary: Creates new customer
+      operationId: createCustomer
+      description: |
+        TODO
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: customer
+        description: Customer to create
+        schema:
+          $ref: '#/definitions/Customer'
+      responses:
+        201:
+          description: Item created
+        400:
+          description: Invalid input, object invalid
+        409:
+          description: An existing item(login) already exists
+
+  /customers/{customerId}:
+    get:
+      tags:
+      - customers
+      summary: List all data about a customer
+      operationId: getCustomer
+      description: |
+        TODO
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: customerId
+        description: ID of customer that needs to be fetched
+        type: string
+        format: obid
+        required: true
+      responses:
+        200:
+          description: A single customer
+          schema:
+            $ref: '#/definitions/Customer'
+        404:
+          description: Customer with this ID not found
+
+    put:
+      tags:
+      - system
+      summary: Replaces a customer
+      operationId: replaceCustomer
+      description: |
+        TODO
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: customerId
+        description: ID of customer that needs to be replaced
+        type: string
+        format: obid
+        required: true
+      - in: body
+        name: customer
+        description: Customer to replace
+        schema:
+          $ref: '#/definitions/Customer'
+      responses:
+        200:
+          description: Item replaced
+        400:
+          description: Invalid input, object invalid
+        404:
+          description: The customer (or any of supplied IDs) is not found
+
+    patch:
+      tags:
+      - system
+      summary: Modifies a customer
+      operationId: modifyCustomer
+      description: |
+        TODO
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: customerId
+        description: ID of customer that needs to be modified
+        type: string
+        format: obid
+        required: true
+      - in: body
+        name: customer
+        description: Customer data with one or more fields filled
+        schema:
+          $ref: '#/definitions/Customer'
+      responses:
+        200:
+          description: Item modified
+        400:
+          description: Invalid input, object invalid
+        404:
+          description: The customer (or any of supplied IDs) is not found
+
+    delete:
+      tags:
+      - system
+      summary: Deletes a customer
+      operationId: deleteCustomer
+      description: |
+        TODO
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: customerId
+        description: ID of customer that needs to be deleted
+        type: string
+        format: obid
+        required: true
+      responses:
+        200:
+          description: Item deleted
+        404:
+          description: The customer is not found
+
+definitions:
+
+  Customer:
+    type: object
+    properties:
+      id:
+        description: |
+          Internal Customer ID, uniquely identifying this customer in the world.
+        type: string
+        example: 553fa88c-4511-445c-b33a-ddff58d76886
+      crmId:
+        description: |
+          Customer ID in the CRM.
+        type: string
+        example: C645235
+      baseUrl:
+        description: |
+          Base URL of the customer container.
+        type: string
+        format: url
+        example: http://www.platformbuilders.com.br
+      name:
+        description: |
+          Customer name
+        type: string
+        example: Platform Builders
+      login:
+        description: |
+          Admin login
+        type: string
+        format: email
+        example: contato@platformbuilders.com.br

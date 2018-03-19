@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: treinamento-deployment
+  namespace: develop
+spec:
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: treinamento-development
+    spec:
+      containers:
+      - name: treinamento
+        image: gcr.io/builders-treinamento/treinamento-develop:latest
+        env:
+          - name: spring_profiles_active
+            value: develop
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
