@@ -26,7 +26,7 @@ Obs: Os documentos devem ser criados com o prefixo:
 
 1. Criar seu repositório no bitbuket e liberar acesso para o grupo:
     ```
-    ArquiteturaBuilders (platformbuilders:arquiteturabuilders)
+    ArquiteturaBuilders (platformbuilders:rhbuilders)
     ```
 
 **Testes:**
