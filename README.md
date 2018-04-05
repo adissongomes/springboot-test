@@ -24,7 +24,7 @@ Obs: Os documentos devem ser criados com o prefixo:
 
 **Repositório:**
 
-1. Criar seu repositório no bitbuket como público, enviar o link so seu projeto a Builders:
+1. Criar seu repositório no bitbucket como público, enviar o link so seu projeto a Builders:
 
 
 **Testes:**
