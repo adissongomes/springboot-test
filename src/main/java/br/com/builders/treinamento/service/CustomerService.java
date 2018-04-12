@@ -72,7 +72,10 @@ public class CustomerService {
         else
             builder.crmId(customerResponse.getCrmId());
 
-        return buildResponse(repository.save(builder.build()));
+        Customer customerToUpdate = builder.build();
+        repository.save(customerToUpdate);
+
+        return buildResponse(customerToUpdate);
     }
 
     public CustomerResponse fetch(String id) throws NotFoundException {

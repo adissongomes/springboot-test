@@ -83,19 +83,19 @@ public class CustomerServiceTest {
     public void testPartialUpdate() throws NotFoundException {
 
         Customer customer = CustomersTestFactory.defaultCustomer();
-        Customer savedCustomer = CustomersTestFactory.defaultCustomer();
-        savedCustomer.setLogin("new_login");
 
         Mockito.when(repository.findOne(anyString())).thenReturn(customer);
-        Mockito.when(repository.save(any(Customer.class))).thenReturn(savedCustomer);
 
         CustomerPartialRequest partialRequest = CustomerPartialRequest.builder()
                 .login("new_login")
                 .build();
         CustomerResponse response = service.partialUpdate(partialRequest, customer.getId());
 
-        assertEquals(customer.getId(), response.getId());
         assertNotEquals(customer.getLogin(), response.getLogin());
+        assertNotNull(response.getName());
+        assertNotNull(response.getCrmId());
+        assertNotNull(response.getBaseUrl());
+
 
     }
 
@@ -115,24 +115,24 @@ public class CustomerServiceTest {
     @Test
     public void testUpdate() throws NotFoundException {
 
-        Customer customer = CustomersTestFactory.defaultCustomer();
-        Customer savedCustomer = CustomersTestFactory.defaultCustomer();
-        savedCustomer.setLogin("new_login");
-        savedCustomer.setName("new_name");
+        Customer savedCustomer = Customer.builder()
+            .login("new_login")
+            .name("new_name")
+            .build();
 
-        Mockito.when(repository.findOne(anyString())).thenReturn(customer);
+        Mockito.when(repository.findOne(anyString())).thenReturn(CustomersTestFactory.defaultCustomer());
         Mockito.when(repository.save(any(Customer.class))).thenReturn(savedCustomer);
 
         CustomerRequest request = CustomerRequest.builder()
                 .login("new_login")
                 .name("new_name")
                 .build();
-        CustomerResponse response = service.update(request, customer.getId());
+        CustomerResponse response = service.update(request, "111");
 
-        assertEquals(customer.getId(), response.getId());
-        assertEquals(customer.getCrmId(), response.getCrmId());
-        assertNotEquals(customer.getLogin(), response.getLogin());
-        assertNotEquals(customer.getName(), response.getName());
+        assertNull(response.getCrmId());
+        assertNull(response.getBaseUrl());
+        assertEquals(request.getLogin(), response.getLogin());
+        assertEquals(request.getName(), response.getName());
 
     }
 
