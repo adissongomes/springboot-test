@@ -36,7 +36,7 @@ public class CustomerResource {
 
   @Autowired
   private CustomerService customerService;
-  
+
   @ApiOperation(value = "List all customers / containers",
           httpMethod = "GET", response = CustomerResponse.class, tags = "customers")
   @ApiResponses(value = {
@@ -109,11 +109,9 @@ public class CustomerResource {
   @ApiOperation(value = "Deletes a customer", httpMethod = "DELETE", tags = "system")
   @ApiResponses(value = {
           @ApiResponse(code = 200, message = "Cliente removido com sucesso"),
-          @ApiResponse(code = 500, message = "Erro interno do sistema"),
           @ApiResponse(code = 404, message = "Cliente não encontrado")
   })
-  @RequestMapping(value = CUSTOMERS_URI + "/{customerId}", method = RequestMethod.DELETE,
-          consumes = MediaType.APPLICATION_JSON)
+  @RequestMapping(value = CUSTOMERS_URI + "/{customerId}", method = RequestMethod.DELETE)
   public ResponseEntity delete(@PathVariable("customerId") String id) throws NotFoundException {
     customerService.delete(id);
     return ResponseEntity.ok().build();

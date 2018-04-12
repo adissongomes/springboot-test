@@ -6,6 +6,7 @@ import br.com.builders.treinamento.exception.GlobalExceptionHandler;
 import br.com.builders.treinamento.exception.NotFoundException;
 import br.com.builders.treinamento.service.CustomerService;
 import br.com.builders.treinamento.service.CustomersTestFactory;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Before;
@@ -252,4 +253,23 @@ public class CustomerResourceTest {
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
+    @Test
+    public void testDelete() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                .delete(CustomerResource.CUSTOMERS_URI + "/{customerId}", "111"))
+            .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+    
+    @Test
+    public void testDeleteWhenNotFoundCustomer() throws Exception {
+        String id = "111";
+
+        doThrow(new NotFoundException("not found"))
+                .when(customerService).delete(id);
+
+        mvc.perform(MockMvcRequestBuilders
+                .delete(CustomerResource.CUSTOMERS_URI + "/{customerId}", id))
+            .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+    
 }
