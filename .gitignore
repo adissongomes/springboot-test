@@ -72,3 +72,5 @@ nbactions.xml
 
 ### OSX ### 
 .DS_Store
+.idea/
+*.iml

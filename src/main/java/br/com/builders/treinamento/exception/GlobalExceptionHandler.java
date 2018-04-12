@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -134,6 +135,10 @@ public class GlobalExceptionHandler {
     logE(ex);
     return errorInfoBody(ex.getErros(), HttpStatus.UNPROCESSABLE_ENTITY);
   }
+
+  @ResponseStatus(HttpStatus.CONFLICT)
+  @ExceptionHandler(DataIntegrityViolationException.class)
+  public void handleDataIntegrityException() {}
 
   private String getMessage(final String code, final Object... args) {
     return messageSource.getMessage(code, args, Locale.getDefault());
