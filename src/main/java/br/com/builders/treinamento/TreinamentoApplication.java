@@ -11,12 +11,10 @@ package br.com.builders.treinamento;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
-@SpringBootApplication
-@ComponentScan(basePackages = {"br.com.builders.treinamento"})
+@SpringBootApplication(scanBasePackages = {"br.com.builders.treinamento"})
 public class TreinamentoApplication {
 
 	public static void main(String[] args) {

@@ -33,6 +33,7 @@ public class SwaggerConfig {
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.apiInfo(apiInfo())
+				.useDefaultResponseMessages(false)
 				.select()
 				.apis(RequestHandlerSelectors.basePackage("br.com.builders.treinamento"))
 				.paths(PathSelectors.any()).build().directModelSubstitute(DateTime.class, String.class);
