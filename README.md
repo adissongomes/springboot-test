@@ -11,22 +11,6 @@ Para o desenvolvimento da API, utilizar as especificações que constam no swagg
 **/swagger/swagger.yaml**
 
 
-**MongoDB:**
-
-Para acesso ao banco utilizar: 
-```
-mongodb://test:test@ds119078.mlab.com:19078/builders-sandbox
-```
-Obs: Os documentos devem ser criados com o prefixo:
-```
-<nome_sobrenome>_xxxxx
-```
-
-**Repositório:**
-
-1. Criar seu repositório no bitbucket como público, enviar o link so seu projeto a Builders:
-
-
 **Testes:**
 
 1. O projeto devem ter alta cobertura de testes unitários.
